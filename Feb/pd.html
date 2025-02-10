@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galentine's Celebration</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffb6c1;
+            color: #d63384;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1, p {
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        .popup button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #d63384;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+        .input-box {
+            padding: 10px;
+            border: 2px solid #d63384;
+            border-radius: 10px;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .enter-btn {
+            background-color: #d63384;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="name-entry">
+        <h1>Enter your name, beautiful 💕</h1>
+        <input type="text" id="user-name" class="input-box" placeholder="Your name">
+        <button class="enter-btn" onclick="personalizePage()">Enter</button>
+    </div>
+
+    <div id="main-content" class="hidden">
+        <h1 id="welcome-message"></h1>
+        <div class="pulsing-heart">💖</div>
+        
+        <h2>📸 Memory Gallery</h2>
+        <div class="gallery">
+            <img src="images/photo_1_2025-02-10_13-30-03.jpg" width="500px" height="700px">
+            <img src="images/photo_2_2025-02-10_13-30-03.jpg" width="500px" height="400px">
+            <img src="images/photo_4_2025-02-10_13-30-03.jpg" width="500px" height="700px">
+            <img src="images/photo_5_2025-02-10_13-30-03.jpg" width="400px" height="700px">
+        </div>
+        <p id="custom-note"></p>
+
+        <h2><span id="name-placeholder"></span></h2>
+
+        <h2>💌 A Special Letter</h2>
+        <p>Dear <span id="name-placeholder-letter"></span>,</p>
+        <p>My love, I can’t even begin to tell you how grateful I am to have you in my life. You’re not just a part of it—you are the heart of it, the one who makes everything brighter, warmer, and infinitely more beautiful. Before I even found my "better half," I found my forever in you, and that’s a love I’ll cherish every single day. I can’t imagine where I’d be if our paths hadn’t crossed, if you hadn’t taken that first step, if fate hadn’t been so kind to me. You are, without a doubt, the best thing that has ever happened to me, and I thank the universe for you every single day.
+            This Valentine’s, I wanted to do something a little special, something to remind you just how much you mean to me. Even though we’re miles apart this Galentine’s, that distance will never lessen the love I have for you. It only makes me cherish you more, miss you more, and look forward to every moment we get to share. No matter where we are, no matter how far, you and I will always find a way to celebrate the beautiful bond we share. So here’s to us, to our love, to the unbreakable connection that keeps us together no matter what. </p>
+            <h2>Happy Galentine’s, baby! 💕</h2>
+    </div>
+
+    <div id="popup" class="popup">
+        <h2>Will you be my Galentine? 💖</h2>
+        <button onclick="closePopup()">Yes! 💕</button>
+    </div>
+
+    <script>
+        function personalizePage() {
+            const name = document.getElementById('user-name').value;
+            if (name) {
+                localStorage.setItem('userName', name);
+                document.getElementById('welcome-message').innerHTML = `Welcome, ${name}, to your personalised Galentine gift ! 💖`;                document.getElementById('name-placeholder').innerText = ""
+                document.getElementById('name-placeholder-letter').innerText = name
+                document.getElementById('name-entry').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+            }
+        }
+
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedName = localStorage.getItem('userName');
+            if (savedName) {
+                document.getElementById('user-name').value = savedName;
+                personalizePage();
+            }
+        });
+
+        window.addEventListener("scroll", () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                showPopup();
+            }
+        });
+    </script>
+</body>
+</html>
